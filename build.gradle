@@ -11,6 +11,8 @@ sourceCompatibility = '1.8'
 
 repositories {
     mavenCentral()
+    maven { url "http://repo.spring.io/libs-snapshot-local" }
+    maven { url "http://repo.spring.io/libs-milestone-local" }
 }
 
 dependencyManagement {
@@ -22,13 +24,25 @@ dependencyManagement {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-batch'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    compile "org.springframework.boot:spring-boot-starter-security"
+    compile "org.hsqldb:hsqldb"
     compile("org.springframework.boot:spring-boot-starter-security")
-    compile("org.hsqldb:hsqldb")
-    compile("org.springframework.boot:spring-boot-devtools")
-    compile("io.springfox:springfox-swagger2:2.8.0")
-    compile("io.springfox:springfox-swagger-ui:2.8.0")
+    compile "org.springfraork.boot:spring-boot-devtools"
+    compile "io.springfox:springfox-swagger2:2.8.0"
+    compile "io.springfox:springfox-swagger-ui:2.8.0"
     compile 'com.amazonaws:aws-java-sdk-s3'
     compile 'xyz.fabiano:spring-localstack:0.0.7'
+
+    compile 'org.springframework.cloud.stream.app:python-app-starters-build:2.1.0.RELEASE'
+    compile 'org.springframework.cloud.stream.app:python-app-starters-common:2.1.0.RELEASE'
+    compile 'org.springframework.cloud.stream.app:spring-cloud-starter-stream-processor-python-http:2.1.0.RELEASE'
+    compile 'org.springframework.cloud.stream.app:spring-cloud-starter-stream-processor-httpclient:2.1.0.RELEASE'
+    // https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-stream-test-support
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-stream-test-support', version: '2.1.0.RELEASE'
+
+
+
+
     compileOnly 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.batch:spring-batch-test'

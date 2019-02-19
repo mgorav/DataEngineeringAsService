@@ -10,6 +10,8 @@ import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.stream.messaging.Processor;
+import org.springframework.cloud.stream.test.binder.MessageCollector;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -26,6 +28,11 @@ public class DataEngineeringBatchConfiguration {
     @Autowired
     private AmazonS3 amazonS3;
 
+    @Autowired
+    private Processor processor;
+    @Autowired
+    private MessageCollector messageCollector;
+
     @Bean
     public Step landingToRawTasklet()  {
         return steps.get("landingToRawTasklet").tasklet(new LandingToRawTasklet(amazonS3)).build();
@@ -33,7 +40,7 @@ public class DataEngineeringBatchConfiguration {
 
     @Bean
     public Step rawToCleanseTasklet()  {
-        return steps.get("rawToCleanseTasklet").tasklet(new RawToCleanseTasklet(amazonS3)).build();
+        return steps.get("rawToCleanseTasklet").tasklet(new RawToCleanseTasklet(amazonS3,processor,messageCollector)).build();
     }
 
     @Bean

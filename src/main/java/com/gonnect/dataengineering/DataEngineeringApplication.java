@@ -9,11 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.batch.JobLauncherCommandLineRunner;
-import sun.misc.JavaObjectInputStreamAccess;
+import org.springframework.cloud.stream.app.python.http.processor.PythonHttpProcessorConfiguration;
+import org.springframework.context.annotation.Import;
 
-@SpringBootApplication()
-public class DataengineeringApplication implements CommandLineRunner {
+@SpringBootApplication
+@Import(PythonHttpProcessorConfiguration.class)
+public class DataEngineeringApplication implements CommandLineRunner {
 
     @Autowired
     private JobLauncher jobLauncher;
@@ -27,7 +28,7 @@ public class DataengineeringApplication implements CommandLineRunner {
 
     public static void main(String[] args) {
 
-        SpringApplication.run(DataengineeringApplication.class, args);
+        SpringApplication.run(DataEngineeringApplication.class, args);
 
     }
 
